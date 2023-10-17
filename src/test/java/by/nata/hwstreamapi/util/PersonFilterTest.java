@@ -60,7 +60,7 @@ class PersonFilterTest {
     @Test
     void testNameListToStringAndPrint() {
         String names = testPersons.stream()
-                .map(Person::getName) // Преобразование в имена
+                .map(Person::getName)
                 .collect(Collectors.joining(", "));
 
         System.out.println("Names separated by comma: " + names);
