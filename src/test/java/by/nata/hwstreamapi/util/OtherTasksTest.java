@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,7 @@ class OtherTasksTest {
         }
     }
 
+    //Получите список дат и найдите количество дней между первой и последней датой.
     @Test
     void testDaysBetweenFirstAndLastDate() {
         List<LocalDate> dates = new ArrayList<>();
@@ -49,6 +51,26 @@ class OtherTasksTest {
                 .collect(CustomCollectors.daysBetweenFirstAndLastDate());
 
         System.out.println("Number of days between first and last date: " + daysBetween);
+    }
+
+    //Получите список строк, преобразуйте их в числа, и посчитайте среднее значение (не забудьте отфильтровать не валидные строки)
+    @Test
+    void testCalculateAverage(){
+        List<String> str = Arrays.asList("10.5", "15.2", "20.0", "invalid", "5.3", "12.8");
+        double value = str.stream()
+                .map(s -> {
+                    try {
+                        return Optional.of(Double.parseDouble(s));
+                    } catch (NumberFormatException e) {
+                        return Optional.empty();
+                    }
+                })
+                .filter(Optional::isPresent)
+                .mapToDouble(o -> (double) o.get())
+                .average()
+                .orElse(0.0);
+
+        System.out.println("Average value: " + value);
     }
 
 }
