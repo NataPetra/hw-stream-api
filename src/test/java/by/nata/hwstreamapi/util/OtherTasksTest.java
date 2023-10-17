@@ -7,7 +7,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -34,4 +37,18 @@ class OtherTasksTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    void testDaysBetweenFirstAndLastDate() {
+        List<LocalDate> dates = new ArrayList<>();
+        dates.add(LocalDate.of(2023, 1, 1));
+        dates.add(LocalDate.of(2023, 12, 10));
+        dates.add(LocalDate.of(2023, 10, 20));
+
+        long daysBetween = dates.stream()
+                .collect(CustomCollectors.daysBetweenFirstAndLastDate());
+
+        System.out.println("Number of days between first and last date: " + daysBetween);
+    }
+
 }
