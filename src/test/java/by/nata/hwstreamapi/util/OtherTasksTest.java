@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -20,7 +22,7 @@ class OtherTasksTest {
 
     //Прочтите содержимое текстового файла и сделайте из него частотный словарик. (слово -> и какое кол-во раз это слово встречается в нём)
     @Test
-    void testWordFrequencyCounter(){
+    void testWordFrequencyCounter() {
         String filePath = "file.txt";
         Path path = Paths.get(filePath);
 
@@ -55,7 +57,7 @@ class OtherTasksTest {
 
     //Получите список строк, преобразуйте их в числа, и посчитайте среднее значение (не забудьте отфильтровать не валидные строки)
     @Test
-    void testCalculateAverage(){
+    void testCalculateAverage() {
         List<String> str = Arrays.asList("10.5", "15.2", "20.0", "invalid", "5.3", "12.8");
         double value = str.stream()
                 .map(s -> {
@@ -71,6 +73,27 @@ class OtherTasksTest {
                 .orElse(0.0);
 
         System.out.println("Average value: " + value);
+    }
+
+    //Сгенерируйте миллион рандомных чисел и посчитайте их сумму используя parallelStream с двумя потоками.
+    @Test
+    void testParallelStream() {
+        long startTime = System.currentTimeMillis();
+
+        ForkJoinPool customThreadPool = new ForkJoinPool(2);
+
+        long sum = customThreadPool.submit(() ->
+                ThreadLocalRandom.current()
+                        .longs(1_000_000)
+                        .parallel()
+                        .sum()
+        ).join();
+
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+
+        System.out.println("Sum: " + sum);
+        System.out.println("Execution time (milliseconds): " + totalTime);
     }
 
 }

@@ -1,8 +1,8 @@
 package by.nata.hwstreamapi.util;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collector;
 
 class CustomCollectors {
