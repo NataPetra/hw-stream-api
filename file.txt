@@ -1,0 +1,4 @@
+This is a sample text for testing the WordFrequencyCounter.
+It contains some words, both common and uncommon.
+The quick brown fox jumps over the lazy dog.
+Testing, one, two, "three", it`s testing, self-esteem, mother-in-law. This is just a test it`s.
