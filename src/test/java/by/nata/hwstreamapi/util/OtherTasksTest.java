@@ -60,17 +60,21 @@ class OtherTasksTest {
     void testCalculateAverage() {
         List<String> str = Arrays.asList("10.5", "15.2", "20.0", "invalid", "5.3", "12.8");
         double value = str.stream()
-                .map(s -> {
-                    try {
-                        return Optional.of(Double.parseDouble(s));
-                    } catch (NumberFormatException e) {
-                        return Optional.empty();
-                    }
-                })
-                .filter(Optional::isPresent)
-                .mapToDouble(o -> (double) o.get())
+                .filter(s -> s.matches("\\d+\\.\\d+"))
+                .mapToDouble(Double::parseDouble)
                 .average()
                 .orElse(0.0);
+//                .map(s -> {
+//                    try {
+//                        return Optional.of(Double.parseDouble(s));
+//                    } catch (NumberFormatException e) {
+//                        return Optional.empty();
+//                    }
+//                })
+//                .filter(Optional::isPresent)
+//                .mapToDouble(o -> (double) o.get())
+//                .average()
+//                .orElse(0.0);
 
         System.out.println("Average value: " + value);
     }

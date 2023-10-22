@@ -70,13 +70,14 @@ class PersonFilterTest {
     @Test
     void testSortByAgeAndName() {
         testPersons.stream()
-                .sorted((p1, p2) -> {
-                    if (p1.getAge() == p2.getAge()) {
-                        return p1.getName().compareTo(p2.getName());
-                    } else {
-                        return Integer.compare(p2.getAge(), p1.getAge());
-                    }
-                })
+                .sorted(Comparator.comparing(Person::getAge).reversed().thenComparing(Person::getName))
+//                .sorted((p1, p2) -> {
+//                    if (p1.getAge() == p2.getAge()) {
+//                        return p1.getName().compareTo(p2.getName());
+//                    } else {
+//                        return Integer.compare(p2.getAge(), p1.getAge());
+//                    }
+//                })
                 .forEach(System.out::println);
     }
 
